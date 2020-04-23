@@ -1,0 +1,19 @@
+mat-toolbar > button {
+  margin: 0 15px;
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #333333;
+  color: #fff;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+}
+
+footer > p {
+  margin: 0;
+}

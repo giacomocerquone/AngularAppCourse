@@ -5,13 +5,13 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class NoAuthGuard implements CanActivate {
   constructor(private auth: AuthService) {}
 
   canActivate(
@@ -19,9 +19,9 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     if (this.auth.currentUser) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
 }
