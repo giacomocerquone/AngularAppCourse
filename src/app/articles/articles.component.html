@@ -8,11 +8,10 @@
             article?.author?.image ||
             'https://mascitelliandpartners.com/map/wp-content/uploads/2015/03/placeholder_user-300x300.png'
           "
-          alt="Photo of a Shiba Inu"
         />
         <mat-card-title>{{ article.title }}</mat-card-title>
         <mat-card-subtitle
-          >Scritto da
+          >Inviato da
           <a [routerLink]="['/user', article?.author?.username]">{{
             article?.author?.username
           }}</a></mat-card-subtitle

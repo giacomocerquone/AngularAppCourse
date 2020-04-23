@@ -9,7 +9,7 @@ import {
   ValidationErrors,
   AsyncValidatorFn,
 } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable, of, EMPTY } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -33,14 +33,32 @@ export class AuthService {
           this.currentUser = res.user;
           localStorage.setItem('loggedInUser', JSON.stringify(res.user));
         }
+      }),
+      catchError(() => {
+        alert('Errore durante il login');
+        return EMPTY;
       })
     );
   }
 
   signup(email, password, username) {
-    return this.http.post(endpoints.signup, {
-      user: { email, password, username },
-    });
+    return this.http
+      .post(endpoints.signup, {
+        user: { email, password, username },
+      })
+      .pipe(
+        tap((res: any) => {
+          if (res.user) {
+            this.router.navigate(['/profile']);
+            this.currentUser = res.user;
+            localStorage.setItem('loggedInUser', JSON.stringify(res.user));
+          }
+        }),
+        catchError(() => {
+          alert('Errore durante la registrazione');
+          return EMPTY;
+        })
+      );
   }
 
   logout() {

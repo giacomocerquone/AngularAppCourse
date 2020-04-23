@@ -25,10 +25,12 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(signupForm: FormGroup) {
-    this.auth.signup(
-      signupForm.value.email,
-      signupForm.value.username,
-      signupForm.value.password
-    );
+    this.auth
+      .signup(
+        signupForm.value.email,
+        signupForm.value.username,
+        signupForm.value.password
+      )
+      .subscribe();
   }
 }
