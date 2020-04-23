@@ -1,1 +1,72 @@
-<p>profile works!</p>
+<section>
+  <h1>Il tuo profilo</h1>
+  <form [formGroup]="updateUserForm" (ngSubmit)="onSubmit(updateUserForm)">
+    <div class="img-container">
+      <img
+        [src]="
+          auth?.currentUser?.img ||
+          'https://mascitelliandpartners.com/map/wp-content/uploads/2015/03/placeholder_user-300x300.png'
+        "
+      />
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" matInput placeholder="Scrivi qui" />
+      <mat-hint>La tua mail</mat-hint>
+      <mat-error *ngIf="updateUserForm.get('email').hasError('required')">
+        Per favore inserisci una mail
+      </mat-error>
+      <mat-error *ngIf="updateUserForm.get('email').hasError('email')">
+        Per favore inserisci una mail valida
+      </mat-error>
+      <mat-error *ngIf="updateUserForm.get('email').errors?.emailTaken">
+        Questa mail è stata già utilizzata
+      </mat-error>
+    </mat-form-field>
+
+    <mat-spinner
+      [diameter]="30"
+      *ngIf="updateUserForm.get('email').status === 'PENDING'"
+    ></mat-spinner>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nome utente</mat-label>
+      <input formControlName="username" matInput placeholder="Scrivi qui" />
+      <mat-hint>Il tuo nome utente</mat-hint>
+      <mat-error *ngIf="updateUserForm.get('username').hasError('required')">
+        Per favore inserisci un username
+      </mat-error>
+
+      <mat-error *ngIf="updateUserForm.get('username').errors?.usernameTaken">
+        Questo username è stato già utilizzato
+      </mat-error>
+    </mat-form-field>
+
+    <mat-spinner
+      [diameter]="30"
+      *ngIf="updateUserForm.get('username').status === 'PENDING'"
+    ></mat-spinner>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Bio</mat-label>
+      <textarea
+        formControlName="bio"
+        matInput
+        placeholder="Scrivi qui"
+      ></textarea>
+      <mat-hint>Una tua descrizione</mat-hint>
+    </mat-form-field>
+
+    <button class="submit" mat-raised-button color="primary" type="submit">
+      Salva
+    </button>
+    <button
+      class="reset"
+      mat-raised-button
+      color="secondary"
+      (click)="onReset()"
+    >
+      Resetta
+    </button>
+  </form>
+</section>

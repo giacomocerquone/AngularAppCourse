@@ -10,6 +10,7 @@ import {
   AsyncValidatorFn,
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ import { Observable, of } from 'rxjs';
 export class AuthService {
   currentUser: User;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
       this.currentUser = JSON.parse(storedUser);
@@ -28,6 +29,8 @@ export class AuthService {
     return this.http.post(endpoints.login, { user: { email, password } }).pipe(
       tap((res: any) => {
         if (res.user) {
+          this.router.navigate(['/profile']);
+          this.currentUser = res.user;
           localStorage.setItem('loggedInUser', JSON.stringify(res.user));
         }
       })
@@ -43,6 +46,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('loggedInUser');
     this.currentUser = null;
+    this.router.navigate(['/']);
   }
 
   emailValidator(): AsyncValidatorFn {
@@ -70,7 +74,10 @@ export class AuthService {
       | Observable<ValidationErrors | null> => {
       return this.signup('', '', ctrl.value).pipe(
         catchError((err) => {
-          if (err?.error?.errors?.username?.[0] === 'has already been taken') {
+          if (
+            err?.error?.errors?.username?.[0] === 'has already been taken' &&
+            this.currentUser?.username !== ctrl.value
+          ) {
             return of({ usernameTaken: true });
           }
           return of(null);

@@ -4,6 +4,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
+  Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -12,13 +13,14 @@ import { AuthService } from '../services/auth.service';
   providedIn: 'root',
 })
 export class NoAuthGuard implements CanActivate {
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
     if (this.auth.currentUser) {
+      this.router.navigate(['/profile']);
       return false;
     } else {
       return true;
