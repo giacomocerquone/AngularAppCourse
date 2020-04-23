@@ -1,1 +1,33 @@
-<p>login works!</p>
+<section>
+  <h1>Effettua l'accesso</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" matInput placeholder="Scrivi qui" />
+      <mat-hint>La tua mail</mat-hint>
+      <mat-error *ngIf="loginForm.get('email').hasError('required')">
+        Per favore inserisci una mail
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('email').hasError('email')">
+        Per favore inserisci una mail valida
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        formControlName="password"
+        matInput
+        placeholder="Scrivi qui"
+        type="password"
+      />
+      <mat-hint>La tua password</mat-hint>
+      <mat-error *ngIf="loginForm.get('password').hasError('required')">
+        Per favore inserisci una password
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+      Accedi
+    </button>
+  </form>
+</section>

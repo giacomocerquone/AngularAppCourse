@@ -4,6 +4,7 @@ import { AuthGuard } from './root/guards/auth.guard';
 import { NoAuthGuard } from './root/guards/no-auth.guard';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'profile',
     loadChildren: () =>

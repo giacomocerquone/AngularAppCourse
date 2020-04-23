@@ -1,0 +1,19 @@
+<mat-toolbar>
+  <span>Angular demo</span>
+
+  <span style="flex: 1;"></span>
+
+  <ng-container *ngIf="auth.currentUser; else loggedOutNav">
+    <button mat-raised-button routerLink="/profile">
+      Profilo
+    </button>
+    <button mat-raised-button (click)="auth.logout()">
+      Log-Out
+    </button>
+  </ng-container>
+
+  <ng-template #loggedOutNav>
+    <button mat-raised-button routerLink="/login">Login</button>
+    <button mat-raised-button routerLink="/signup">Registrati</button>
+  </ng-template>
+</mat-toolbar>

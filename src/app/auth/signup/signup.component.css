@@ -1,0 +1,18 @@
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5em;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+form > button {
+  margin: 2em 0;
+  display: block;
+}
