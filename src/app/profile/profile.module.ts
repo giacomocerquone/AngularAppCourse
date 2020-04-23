@@ -7,7 +7,12 @@ import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileService } from './services/profile.service';
 
-const routes = [{ path: '', component: ProfileComponent }];
+const routes = [
+  {
+    path: '',
+    component: ProfileComponent,
+  },
+];
 
 @NgModule({
   declarations: [ProfileComponent],

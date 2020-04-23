@@ -21,9 +21,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(form: FormGroup): void {
     this.auth.login(form.value.email, form.value.password).subscribe(
-      (res) => {
-        console.log(res);
-      },
+      () => {},
       (err) => {
         console.log(err);
         alert('Login errato');

@@ -5,4 +5,5 @@ export default {
   signup: `${environment.api_url}/users`,
   update: `${environment.api_url}/user`,
   articles: `${environment.api_url}/articles`,
+  profiles: `${environment.api_url}/profiles`,
 };
