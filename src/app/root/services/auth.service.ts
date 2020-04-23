@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import endpoints from 'src/app/shared/endpoints';
-import { User } from '../models/User';
+import { User } from '../../shared/models/User';
 
 import { tap, catchError } from 'rxjs/operators';
 import {
@@ -57,7 +57,11 @@ export class AuthService {
       | Observable<ValidationErrors | null> => {
       return this.signup(ctrl.value, '', '').pipe(
         catchError((err) => {
-          if (err?.error?.errors?.email?.[0] === 'has already been taken') {
+          if (
+            err?.error?.errors?.email?.[0] === 'has already been taken' &&
+            this.currentUser &&
+            this.currentUser.email !== ctrl.value
+          ) {
             return of({ emailTaken: true });
           }
           return of(null);
@@ -76,7 +80,8 @@ export class AuthService {
         catchError((err) => {
           if (
             err?.error?.errors?.username?.[0] === 'has already been taken' &&
-            this.currentUser?.username !== ctrl.value
+            this.currentUser &&
+            this.currentUser.username !== ctrl.value
           ) {
             return of({ usernameTaken: true });
           }

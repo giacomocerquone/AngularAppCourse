@@ -1,0 +1,7 @@
+<div *ngIf="article$ | async as data; else loading">
+  <p *ngFor="let article of data.articles">{{ article.title }}</p>
+</div>
+
+<ng-template #loading>
+  <mat-spinner [diameter]="30"></mat-spinner>
+</ng-template>

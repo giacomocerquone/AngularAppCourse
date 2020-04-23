@@ -21,7 +21,11 @@ export class ProfileComponent implements OnInit {
     const { email, username, bio } = this.auth.currentUser;
 
     this.updateUserForm = this.fb.group({
-      email: [email, [Validators.required, Validators.email]],
+      email: [
+        email,
+        [Validators.required, Validators.email],
+        this.auth.emailValidator(),
+      ],
       username: [username, Validators.required, this.auth.usernameValidator()],
       bio: [bio],
     });
