@@ -31,6 +31,10 @@ export class SignupComponent implements OnInit {
         signupForm.value.username,
         signupForm.value.password
       )
-      .subscribe();
+      .subscribe({
+        error: () => {
+          alert('Errore durante la registrazione');
+        },
+      });
   }
 }

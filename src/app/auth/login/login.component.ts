@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: FormGroup): void {
-    this.auth.login(form.value.email, form.value.password).subscribe();
+    this.auth.login(form.value.email, form.value.password).subscribe({
+      error: () => {
+        alert('Errore durante il login');
+      },
+    });
   }
 }

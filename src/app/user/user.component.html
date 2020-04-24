@@ -1,1 +1,3 @@
-<p>user works!</p>
+<section *ngIf="user$ | async as data; else loading">
+  <img [src]="data?.profile?.image" />
+</section>
