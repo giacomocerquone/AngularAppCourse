@@ -91,7 +91,7 @@ export class AuthService {
           if (
             err?.error?.errors?.username?.[0] === 'has already been taken' &&
             (!this.currentUser ||
-              (this.currentUser && this.currentUser.email !== ctrl.value))
+              (this.currentUser && this.currentUser.username !== ctrl.value))
           ) {
             return of({ usernameTaken: true });
           }
